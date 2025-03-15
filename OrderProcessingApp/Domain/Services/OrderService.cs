@@ -12,9 +12,9 @@ namespace OrderProcessingApp.Domain.Services
 {
     public class OrderService
     {
+        
         private readonly InMemoryOrderRepository _repository;
-        int minValue = Convert.ToInt32(Environment.GetEnvironmentVariable("MIN_VALUE"));
-        int taskDelay = Convert.ToInt32(Environment.GetEnvironmentVariable("TASK_DELAY"));
+        
 
 
         public OrderService(InMemoryOrderRepository repository)
@@ -49,16 +49,16 @@ namespace OrderProcessingApp.Domain.Services
                 return;
             }
 
-            if (order.Price >= minValue && order.PaymentMethod == PaymentMethod.GotówkaPrzyOdbiorze)
+            if (order.Price >= 2500 && order.PaymentMethod == PaymentMethod.GotówkaPrzyOdbiorze)
             {
-                Task.Delay(taskDelay);
+                Task.Delay(5000);
 
                 order.OrderStatus = OrderStatus.ZwróconoDoKlienta;
                 Console.WriteLine($"ALERT: Zamówienie ID:{orderId} zostało zwrócone do klienta.");
             }
             else
             {
-                Task.Delay(taskDelay);
+                Task.Delay(5000);
 
                 order.OrderStatus = OrderStatus.WMagazynie;
                 Console.WriteLine($"ALERT: Zamówienie ID:{orderId} przekazane do Magazynu.");
@@ -78,11 +78,11 @@ namespace OrderProcessingApp.Domain.Services
                 return;
             }
 
-            Task.Delay(taskDelay);
+            Task.Delay(5000);
             order.OrderStatus = OrderStatus.WWysyłce;
             Console.WriteLine($"ALERT: Zamówienie ID: {orderId} przekazane do Wysyłki");
 
-            Task.Delay(taskDelay);
+            Task.Delay(5000);
             order.OrderStatus = OrderStatus.Zamknięte;
             Console.WriteLine($"ALERT: Zamówienie ID: {orderId} dostarczone");
         }
