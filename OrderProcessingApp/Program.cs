@@ -1,5 +1,4 @@
-﻿using DotNetEnv;
-using OrderProcessingApp.ConsoleUI;
+﻿using OrderProcessingApp.ConsoleUI;
 using OrderProcessingApp.Domain.Services;
 using OrderProcessingApp.Repositories;
 
