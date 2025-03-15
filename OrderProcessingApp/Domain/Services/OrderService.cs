@@ -110,6 +110,35 @@ namespace OrderProcessingApp.Domain.Services
             Console.WriteLine($"Status Zamówienia: {order.OrderStatus}");
             Console.WriteLine($"Data złożenia Zamówienia: {order.OrderDate}");
         }
+        public void ViewNewOrders()
+        {
+            var all = _repository.GetAllOrders();
+            var newOrders = all.Where(o => o.OrderStatus == OrderStatus.Nowe);
+            if (newOrders.Count() == 0)
+            {
+                Console.WriteLine("Brak nowych zamówień.");
+                return;
+            }
+            foreach (var o in newOrders)
+            {
+                Console.WriteLine($"ID: {o.Id}, {o.ProductName}, {o.OrderStatus}, Cena: {o.Price} PLN");
+            }
+        }
+
+        public void ViewMagazinOrders()
+        {
+            var all = _repository.GetAllOrders();
+            var magazynOrders = all.Where(o => o.OrderStatus == OrderStatus.WMagazynie);
+            if (magazynOrders.Count() == 0)
+            {
+                Console.WriteLine("Brak zamówień w Magazynie.");
+                return;
+            }
+            foreach (var o in magazynOrders)
+            {
+                Console.WriteLine($"ID: {o.Id}, {o.ProductName}, {o.OrderStatus}, Cena: {o.Price} PLN");
+            }
+        }
 
     }
 }
