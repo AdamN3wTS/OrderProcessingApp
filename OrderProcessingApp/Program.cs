@@ -28,7 +28,7 @@ while (!isChoose)
             isChoose = true;
             break;
         case "3":
-            Console.WriteLine("Podaj ścieżkę do pliku z danymi:");
+            Console.WriteLine("Podaj ścieżkę do pliku z danymi (np. test.json):");
             string path = Console.ReadLine();
             js.LoadFromFile(Path.Combine(dataFolder, path), repository);
             isChoose = true;
