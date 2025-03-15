@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OrderProcessingApp.Domain.Entities;
 using OrderProcessingApp.Domain.Enums;
 using OrderProcessingApp.Repositories;
-using DotNetEnv;
+using OrderProcessingApp.ConsoleUI.Helpers;
 
 namespace OrderProcessingApp.Domain.Services
 {
@@ -15,6 +15,7 @@ namespace OrderProcessingApp.Domain.Services
         
         private readonly InMemoryOrderRepository _repository;
         
+
 
 
         public OrderService(InMemoryOrderRepository repository)
@@ -51,15 +52,14 @@ namespace OrderProcessingApp.Domain.Services
 
             if (order.Price >= 2500 && order.PaymentMethod == PaymentMethod.GotówkaPrzyOdbiorze)
             {
-                Task.Delay(5000);
+                SpinnerHelper.ShowSpinner();
 
                 order.OrderStatus = OrderStatus.ZwróconoDoKlienta;
                 Console.WriteLine($"ALERT: Zamówienie ID:{orderId} zostało zwrócone do klienta.");
             }
             else
             {
-                Task.Delay(5000);
-
+                SpinnerHelper.ShowSpinner();
                 order.OrderStatus = OrderStatus.WMagazynie;
                 Console.WriteLine($"ALERT: Zamówienie ID:{orderId} przekazane do Magazynu.");
             }
@@ -78,11 +78,15 @@ namespace OrderProcessingApp.Domain.Services
                 return;
             }
 
-            Task.Delay(5000);
-            order.OrderStatus = OrderStatus.WWysyłce;
-            Console.WriteLine($"ALERT: Zamówienie ID: {orderId} przekazane do Wysyłki");
+            SpinnerHelper.ShowSpinner();
 
-            Task.Delay(5000);
+            order.OrderStatus = OrderStatus.WWysyłce;
+            
+            Console.WriteLine($"ALERT: Zamówienie ID: {orderId} przekazane do Wysyłki");
+            
+            
+            SpinnerHelper.ShowSpinner();
+
             order.OrderStatus = OrderStatus.Zamknięte;
             Console.WriteLine($"ALERT: Zamówienie ID: {orderId} dostarczone");
         }
