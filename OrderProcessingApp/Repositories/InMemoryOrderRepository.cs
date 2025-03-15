@@ -22,25 +22,28 @@ namespace OrderProcessingApp.Repositories
         public void RemoveOrderById(int id)
         {
             var order = GetOrderById(id);
-            if (order != null)
+            if (order == null)
             {
-                _orders.Remove(order);
+                return; 
+            }
 
+            _orders.Remove(order);
 
-                for (int i = 0; i < _orders.Count; i++)
-                {
-                    _orders[i].Id = i + 1;
-                }
+            
+            for (int i = 0; i < _orders.Count; i++)
+            {
+                _orders[i].Id = i + 1;
             }
         }
 
         public Order GetOrderById(int id)
+
         {
-            if (Orders.ElementAtOrDefault(id - 1) == null)
+            if (_orders.Count > 0 && id<=_orders.Count)
             {
-                return null;
+                return _orders.FirstOrDefault(o => o.Id == id);
             }
-            return _orders.FirstOrDefault(o => o.Id == id);
+            return null;
         }
 
         public IEnumerable<Order> GetAllOrders()
