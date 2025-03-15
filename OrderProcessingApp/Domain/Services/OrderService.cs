@@ -92,6 +92,24 @@ namespace OrderProcessingApp.Domain.Services
                 Console.WriteLine($"ID: {o.Id}, {o.ProductName}, {o.OrderStatus}, Cena: {o.Price} PLN");
             }
         }
-        
+        public void ViewOrderDetails(int orderId)
+        {
+            var order = _repository.GetOrderById(orderId);
+            if (order == null)
+            {
+                Console.WriteLine($"Zamówienie ID {orderId} nie istnieje.");
+                return;
+            }
+
+            Console.WriteLine($"ID: {order.Id}");
+            Console.WriteLine($"Nazwa Produktu: {order.ProductName}");
+            Console.WriteLine($"Cena Produktu: {order.Price} PLN");
+            Console.WriteLine($"Typ Klienta: {order.CustomerType}");
+            Console.WriteLine($"Adres Dostawy: {order.AdresDostawy}");
+            Console.WriteLine($"Metoda Płatności: {order.PaymentMethod}");
+            Console.WriteLine($"Status Zamówienia: {order.OrderStatus}");
+            Console.WriteLine($"Data złożenia Zamówienia: {order.OrderDate}");
+        }
+
     }
 }
