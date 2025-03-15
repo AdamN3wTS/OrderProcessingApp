@@ -1,1 +1,3 @@
-﻿
+﻿using DotNetEnv;
+
+Env.Load();
