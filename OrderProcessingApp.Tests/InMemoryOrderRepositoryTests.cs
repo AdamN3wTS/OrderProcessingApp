@@ -13,6 +13,11 @@ namespace OrderProcessingApp.Tests
     [TestFixture]
     public class InMemoryOrderRepositoryTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            repository = new InMemoryOrderRepository();
+        }
         private InMemoryOrderRepository repository = new InMemoryOrderRepository();
 
         
